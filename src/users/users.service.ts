@@ -10,7 +10,6 @@ export class UsersService {
     await this.checkUserExists(email);
 
     const signupVerifyToken = uuid.v1();
-    console.log(signupVerifyToken);
     await this.saveUser(name, email, password, signupVerifyToken);
     await this.sendMemberJoinEmail(email, signupVerifyToken);
   }

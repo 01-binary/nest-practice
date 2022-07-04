@@ -1,6 +1,7 @@
-import Mail = require('nodemailer/lib/mailer');
-import * as nodemailer from 'nodemailer';
+require('dotenv').config();
 
+import * as nodemailer from 'nodemailer';
+import Mail = require('nodemailer/lib/mailer');
 import { Injectable } from '@nestjs/common';
 
 interface EmailOptions {
@@ -17,8 +18,8 @@ export class EmailService {
     this.transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: process.env.AUTH_MAIL,
-        pass: process.env.AUTH_PASSWORD,
+        user: process.env.GMAIL_USERNAME,
+        pass: process.env.GMAIL_PASSWORD,
       },
     });
   }
@@ -28,7 +29,6 @@ export class EmailService {
     signupVerifyToken: string,
   ) {
     const baseUrl = 'http://localhost:3000'; // TODO: config
-
     const url = `${baseUrl}/users/email-verify?signupVerifyToken=${signupVerifyToken}`;
 
     const mailOptions: EmailOptions = {
